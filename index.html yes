@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Actual AI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #141414;
+            margin: 0;
+            padding: 0;
+        }
+
+        #chatbox {
+            width: 300px;
+            height: 400px;
+            background-color: gray;
+            border: 1px solid #ccc;
+            margin: 20px auto;
+            padding: 10px;
+            overflow-y: auto;
+        }
+
+        #chatbox div {
+            margin-bottom: 10px;
+        }
+
+        .user {
+            text-align: right;
+            color: blue;
+        }
+
+        .bot {
+            text-align: left;
+            color: green;
+        }
+
+        #userInput {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+        }
+
+        #sendButton {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        #sendButton:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="chatbox">
+        <div class="bot">This is an AMAZING AI!</div>
+    </div>
+
+    <input type="text" id="userInput" placeholder="Type your message...">
+    <button id="sendButton">send</button>
+
+    <script>
+        const sendButton = document.getElementById("sendButton");
+        const userInput = document.getElementById("userInput");
+        const chatbox = document.getElementById("chatbox");
+
+        const responses = {
+            "Hello": "Hey there! You're paws-itively delightful to chat with!",
+            "Hey": "Hey there! Let's make this a claw-some conversation!",
+            "Yo": "Yo! Ready to have a purr-some time together?",
+            "Hi": "Whiskers up! Ready for a purr-fect chat?",
+            "How are you": "I'm feline good, thanks fur asking! How about you, whiskerful friend?",
+            "Bye": "Purr-haps I'll see you later, fur-iend!",
+            "Is this AI good?": "Yes this cat is purrrfectly good!",
+            "default": "Sorry I'm not trained to understand that, try again with another message!"
+        };
+
+        sendButton.addEventListener("click", function() {
+            const userMessage = userInput.value.trim().toLowerCase();
+            if (userMessage) {
+                const userMessageDiv = document.createElement("div");
+                userMessageDiv.classList.add("user");
+                userMessageDiv.textContent = userMessage;
+                chatbox.appendChild(userMessageDiv);
+
+                let botResponse = responses[userMessage] || responses["default"];
+                const botMessageDiv = document.createElement("div");
+                botMessageDiv.classList.add("bot");
+                botMessageDiv.textContent = botResponse;
+                chatbox.appendChild(botMessageDiv);
+
+                chatbox.scrollTop = chatbox.scrollHeight;
+
+                userInput.value = "";
+            }
+        });
+
+        userInput.addEventListener("keypress", function(e) {
+            if (e.key === "Enter") {
+                sendButton.click();
+            }
+        });
+    </script>
+
+</body>
+</html>
