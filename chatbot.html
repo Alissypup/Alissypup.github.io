@@ -39,10 +39,11 @@
         #chatContainer {
             display: flex;
             flex-direction: column;
-            max-width: 300px;
+            max-width: 350px;
             border: 1px solid #ccc;
             background-color: white;
             color: black; /* Ensure the text is visible on the white background */
+            padding: 10px;
         }
 
         #chatbox {
@@ -53,7 +54,7 @@
 
         #chatbox div {
             margin-bottom: 10px;
-            font-size: 8px; /* Make user and bot text smaller but readable */
+            font-size: 12px; /* Adjust font size */
         }
 
         .user {
@@ -129,7 +130,6 @@
         const sendButton = document.getElementById("sendButton");
         const userInput = document.getElementById("userInput");
         const chatbox = document.getElementById("chatbox");
-        const aiImage = document.getElementById("aiImage");
 
         const responses = {
             "hello": "Hey there! You're paws-itively delightful to chat with!",
@@ -154,9 +154,6 @@
             "what's your favorite game": "I enjoy a good game of virtual cat-and-mouse!",
             "can you dance": "I can do a little virtual jig for you!",
             "do you like to travel": "I love exploring virtual worlds and meeting new people!",
-            "default": "Sorry I'm not trained to understand that, try again with another message!",
-
-            // Additional Responses (50 more)
             "howdy": "Howdy partner! Ready for some pawsitive conversation?",
             "whats up": "Not much, just here to chat with you!",
             "sup": "Sup? I'm here, ready to chat!",
@@ -208,45 +205,21 @@
             "what's 100 divided by 4": "100 divided by 4 is 25!",
             "what's 20-8": "20-8 is 12!",
             "what's 6x7": "6x7 is 42!",
-            "what's 3 squared": "3 squared is 9!"
+            "what's 3 squared": "3 squared is 9!",
+            "default": "Sorry, I didn't catch that. Can you try again?"
         };
 
+        // Function to get AI response based on user input
         function getResponse(userMessage) {
-            if (/hello/i.test(userMessage)) return responses["hello"];
-            if (/hey/i.test(userMessage)) return responses["hey"];
-            if (/yo/i.test(userMessage)) return responses["yo"];
-            if (/hi/i.test(userMessage)) return responses["hi"];
-            if (/how\s*are\s*you/i.test(userMessage)) return responses["how are you"];
-            if (/bye/i.test(userMessage)) return responses["bye"];
-            if (/is\s*this\s*ai\s*good/i.test(userMessage)) return responses["is this ai good?"];
-            if (/time/i.test(userMessage)) return responses["what's the time"]();
-            if (/weather/i.test(userMessage)) return responses["what's the weather"];
-            if (/joke/i.test(userMessage)) return responses["tell me a joke"];
-            if (/name/i.test(userMessage)) return responses["what's your name"];
-            if (/hobbies/i.test(userMessage)) return responses["do you have any hobbies"];
-            if (/favorite\s*color/i.test(userMessage)) return responses["what's your favorite color"];
-            if (/like\s*to\s*eat/i.test(userMessage)) return responses["what do you like to eat"];
-            if (/any\s*pets/i.test(userMessage)) return responses["do you have any pets"];
-            if (/favorite\s*movie/i.test(userMessage)) return responses["what's your favorite movie"];
-            if (/sing/i.test(userMessage)) return responses["can you sing"];
-            if (/favorite\s*book/i.test(userMessage)) return responses["what's your favorite book"];
-            if (/something\s*interesting/i.test(userMessage)) return responses["tell me something interesting"];
-            if (/favorite\s*game/i.test(userMessage)) return responses["what's your favorite game"];
-            if (/dance/i.test(userMessage)) return responses["can you dance"];
-            if (/like\s*to\s*travel/i.test(userMessage)) return responses["do you like to travel"];
-            // Math questions
-            if (/\d+\s*[\+\-\*\/]\s*\d+/.test(userMessage)) {
-                try {
-                    return eval(userMessage.replace(/[^0-9+\-*/(). ]/g, ''));
-                } catch (e) {
-                    return "Sorry, I couldn't calculate that.";
-                }
-            }
+            userMessage = userMessage.toLowerCase();
+            if (responses[userMessage]) return responses[userMessage];
+            if (responses[userMessage] && typeof responses[userMessage] === "function") return responses[userMessage]();
             return responses["default"];
         }
 
+        // Send message when user clicks send button
         sendButton.addEventListener("click", function() {
-            const userMessage = userInput.value.trim().toLowerCase();
+            const userMessage = userInput.value.trim();
             if (userMessage) {
                 const userMessageDiv = document.createElement("div");
                 userMessageDiv.classList.add("user");
@@ -259,12 +232,13 @@
                 botMessageDiv.textContent = botResponse;
                 chatbox.appendChild(botMessageDiv);
 
-                chatbox.scrollTop = chatbox.scrollHeight;
+                chatbox.scrollTop = chatbox.scrollHeight; // Keep chat scrolled to the bottom
 
                 userInput.value = "";
             }
         });
 
+        // Send message when user presses Enter key
         userInput.addEventListener("keypress", function(e) {
             if (e.key === "Enter") {
                 sendButton.click();
