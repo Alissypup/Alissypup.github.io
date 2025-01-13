@@ -191,7 +191,9 @@
             "how are you": "I'm feline good, thanks fur asking! How about you, whiskerful friend?",
             "bye": "Purr-haps I'll see you later, fur-iend!",
             "is this ai good?": "Yes this catAI is purrrfectly good!",
-            "what's the time": () => `The current time is ${new Date().toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}.`,
+            "what's the time": function() {
+                return `The current time is ${new Date().toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}.`;
+            },
             "what's the weather": "I'm not connected to the internet, but I hope the weather is purr-fect wherever you are!",
             "tell me a joke": "Why did the cat sit on the computer? Because it wanted to keep an eye on the mouse!",
             "what's your name": "I'm the amazing CatAI, your purr-sonal assistant!",
@@ -224,43 +226,67 @@
             "are you a robot": "I'm not a robot, just a friendly AI here to help you!",
             "do you like music": "I think music is great, especially for setting the mood for a good chat!",
             "do you like sports": "I love virtual sports! Ever played virtual cat soccer?",
-            "can you play chess": "I can play a mean game of chess, just let me know when you're ready!",
-            "can you do math": "Yes, I can help with math problems! Just ask away!",
-            "what's 2+2": "2+2 is 4!",
-            "what's 3x3": "3x3 is 9!",
-            "9 divided by 3": "9 divided by 3 is 3!"
+            "can you play chess": "I can play a mean game of chess, just type your moves!",
         };
 
-        function getResponse(userMessage) {
-            if (responses[userMessage.toLowerCase()]) return responses[userMessage.toLowerCase()];
-            return "Sorry, I don't have a response for that. Try another question!";
+        // Function to check if the input contains any similar phrase
+        function findResponse(input) {
+            // Lowercase the input for case-insensitive matching
+            input = input.toLowerCase();
+
+            // Look for exact or close matches
+            for (let key in responses) {
+                if (input.includes(key)) {
+                    return responses[key];
+                }
+            }
+
+            // If no match, return default response
+            return "I'm not sure what you mean, but I'm here to help!";
         }
 
-        function handleMessage() {
+        // Function to add user input and bot response to the chat
+        function addChat(userMessage, botMessage) {
+            // Add user's message
+            const userDiv = document.createElement("div");
+            userDiv.classList.add("user");
+            userDiv.textContent = `You: ${userMessage}`;
+            chatbox.appendChild(userDiv);
+
+            // Add bot's message
+            const botDiv = document.createElement("div");
+            botDiv.classList.add("bot");
+            botDiv.textContent = `AI: ${botMessage}`;
+            chatbox.appendChild(botDiv);
+
+            // Scroll to the bottom
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        sendButton.addEventListener("click", function() {
             const userMessage = userInput.value.trim();
             if (userMessage) {
-                const userMessageDiv = document.createElement("div");
-                userMessageDiv.classList.add("user");
-                userMessageDiv.textContent = userMessage;
-                chatbox.appendChild(userMessageDiv);
+                // Get response based on user input
+                const response = findResponse(userMessage);
 
-                const botResponse = getResponse(userMessage);
-                const botMessageDiv = document.createElement("div");
-                botMessageDiv.classList.add("bot");
-                botMessageDiv.textContent = botResponse;
-                chatbox.appendChild(botMessageDiv);
+                // Handle dynamic responses (like time)
+                if (typeof response === "function") {
+                    addChat(userMessage, response());
+                } else {
+                    addChat(userMessage, response);
+                }
 
-                chatbox.scrollTop = chatbox.scrollHeight; // Keep chat scrolled to the bottom
                 userInput.value = "";
             }
-        }
+        });
 
-        sendButton.addEventListener("click", handleMessage);
-        userInput.addEventListener("keypress", function(e) {
-            if (e.key === "Enter") {
-                handleMessage();
+        // Listen for enter key
+        userInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                sendButton.click();
             }
         });
     </script>
 </body>
 </html>
+
