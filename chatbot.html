@@ -123,7 +123,7 @@
             margin-top: 20px;
             position: relative;
             z-index: 1;
-            animation: catMove 4s ease-in-out infinite; /* Add side-to-side motion */
+            animation: catMove 4s ease-in-out infinite alternate; /* Add side-to-side motion */
         }
 
         /* Animating the background */
@@ -139,22 +139,22 @@
             }
         }
 
-        /* Continuous side-to-side motion, small rotation, and up/down movement for the cat */
+        /* Side-to-side motion and subtle rotation for the cat */
         @keyframes catMove {
             0% {
-                transform: translateX(0) translateY(0) rotate(0deg); /* Starting position */
+                transform: translateX(0) translateY(0) rotate(0deg);
             }
             25% {
-                transform: translateX(15px) translateY(-5px) rotate(5deg); /* Move right, slight up and rotation */
+                transform: translateX(15px) translateY(5px) rotate(5deg); /* Right with slight up */
             }
             50% {
-                transform: translateX(30px) translateY(0) rotate(10deg); /* Move further right, no vertical movement */
+                transform: translateX(30px) translateY(0) rotate(10deg); /* Further right with rotation */
             }
             75% {
-                transform: translateX(15px) translateY(5px) rotate(5deg); /* Move left, slight down and rotation */
+                transform: translateX(15px) translateY(-5px) rotate(5deg); /* Left with slight down */
             }
             100% {
-                transform: translateX(0) translateY(0) rotate(0deg); /* Back to starting position */
+                transform: translateX(0) translateY(0) rotate(0deg); /* Back to start position */
             }
         }
     </style>
@@ -256,4 +256,36 @@
             const botDiv = document.createElement("div");
             botDiv.classList.add("bot");
             botDiv.textContent = `AI: ${botMessage}`;
-            chatbox
+            chatbox.appendChild(botDiv);
+
+            // Scroll to the bottom
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        sendButton.addEventListener("click", function() {
+            const userMessage = userInput.value.trim();
+            if (userMessage) {
+                // Get response based on user input
+                const response = findResponse(userMessage);
+
+                // Handle dynamic responses (like time)
+                if (typeof response === "function") {
+                    addChat(userMessage, response());
+                } else {
+                    addChat(userMessage, response);
+                }
+
+                userInput.value = "";
+            }
+        });
+
+        // Listen for enter key
+        userInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                sendButton.click();
+            }
+        });
+    </script>
+</body>
+</html>
+
