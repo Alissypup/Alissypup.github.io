@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Actual AI</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Arcade font */
+
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Press Start 2P', cursive; /* Apply Arcade font */
             background-color: #000000;
             margin: 0;
             padding: 0;
@@ -14,6 +16,7 @@
             justify-content: center; /* Center the content horizontally */
             align-items: center; /* Center the content vertically */
             height: 100vh; /* Full height of the viewport */
+            color: white; /* Make text white */
         }
 
         #container {
@@ -27,6 +30,7 @@
             max-width: 300px;
             border: 1px solid #ccc;
             background-color: white;
+            color: black; /* Ensure the text is visible on the white background */
         }
 
         #chatbox {
@@ -47,6 +51,13 @@
         .bot {
             text-align: left;
             color: black;
+        }
+
+        #header {
+            font-size: 16px; /* Adjust size as needed */
+            font-weight: bold;
+            text-decoration: underline;
+            margin-bottom: 10px;
         }
 
         #inputContainer {
@@ -87,11 +98,11 @@
 <body>
 
     <div id="container">
-        <img id="aiImage" src="YOUR_IMAGE_URL_HERE" alt="AI Image">
+        <img id="aiImage" src="https://cdn.discordapp.com/attachments/1322733045815574559/1326678929691508736/image.png?ex=67859389&is=67844209&hm=a36c14b7c32a294eb4f807d1a5ac4df403fc2732b3bd0f2befbc72ec56a4b206&" alt="AI Image">
 
         <div id="chatContainer">
             <div id="chatbox">
-                <div class="bot">This is an AMAZING AI!</div>
+                <div id="header">This is an AMAZING AI!</div>
             </div>
 
             <div id="inputContainer">
