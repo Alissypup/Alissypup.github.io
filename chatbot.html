@@ -28,12 +28,12 @@
 
         .user {
             text-align: right;
-            color: black; /* Updated to black */
+            color: black;
         }
 
         .bot {
             text-align: left;
-            color: black; /* Updated to black */
+            color: black;
         }
 
         #userInput {
@@ -84,13 +84,13 @@
         };
 
         function getResponse(userMessage) {
-            if (/hello|hello\s+catai/i.test(userMessage)) return responses["hello"];
-            if (/hey|hey\s+catai/i.test(userMessage)) return responses["hey"];
+            if (/hello/i.test(userMessage)) return responses["hello"];
+            if (/hey/i.test(userMessage)) return responses["hey"];
             if (/yo/i.test(userMessage)) return responses["yo"];
             if (/hi/i.test(userMessage)) return responses["hi"];
-            if (/how are you/i.test(userMessage)) return responses["how are you"];
+            if (/how\s*are\s*you/i.test(userMessage)) return responses["how are you"];
             if (/bye/i.test(userMessage)) return responses["bye"];
-            if (/is this ai good\?/i.test(userMessage)) return responses["is this ai good?"];
+            if (/is\s*this\s*ai\s*good\?/i.test(userMessage)) return responses["is this ai good?"];
             return responses["default"];
         }
 
