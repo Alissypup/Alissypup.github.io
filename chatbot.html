@@ -41,21 +41,21 @@
             align-items: flex-start;
             position: relative;
             z-index: 1;
-            width: 80%; /* Adjust width to fit both elements */
-            max-width: 1000px; /* Max width of the whole container */
+            width: 85%; /* Adjust width to fit both elements */
+            max-width: 1200px; /* Max width of the whole container */
         }
 
         #chatContainer {
             display: flex;
             flex-direction: column;
-            max-width: 350px;
+            max-width: 380px;
             border: 1px solid #ccc;
             background-color: white;
             color: black;
             padding: 10px;
             z-index: 2; /* Ensures the chatbox stays above the background */
             position: relative;
-            margin-left: 30px; /* Move chatbox a bit farther from the cat */
+            margin-left: 50px; /* Move chatbox farther from the cat */
         }
 
         #chatbox {
@@ -118,7 +118,7 @@
 
         /* Positioning the cat */
         img {
-            width: 250px; /* Make the cat image bigger */
+            width: 300px; /* Make the cat image bigger */
             height: auto;
             margin-top: 20px;
             position: relative;
@@ -139,19 +139,19 @@
             }
         }
 
-        /* Side-to-side motion and rotation for the cat */
+        /* Side-to-side motion and subtle rotation for the cat */
         @keyframes catMove {
             0% {
                 transform: translateX(0) rotate(0deg);
             }
             25% {
-                transform: translateX(15px) rotate(15deg); /* Move right and rotate slightly */
+                transform: translateX(15px) rotate(7deg); /* Subtle right rotation */
             }
             50% {
                 transform: translateX(30px) rotate(0deg); /* Move right further and reset rotation */
             }
             75% {
-                transform: translateX(15px) rotate(-15deg); /* Move left and rotate slightly to the left */
+                transform: translateX(15px) rotate(-7deg); /* Subtle left rotation */
             }
             100% {
                 transform: translateX(0) rotate(0deg); /* Move back to the starting point and reset rotation */
