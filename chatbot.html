@@ -8,18 +8,18 @@
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Arcade font */
 
         body {
-            font-family: 'Press Start 2P', cursive; /* Apply Arcade font */
+            font-family: 'Press Start 2P', cursive;
             background-color: #000000;
             margin: 0;
             padding: 0;
-            display: flex; /* Flexbox layout */
-            justify-content: center; /* Center the content horizontally */
-            align-items: center; /* Center the content vertically */
-            height: 100vh; /* Full height of the viewport */
-            color: white; /* Make text white */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: white;
             overflow: hidden;
-            background: repeating-linear-gradient(90deg, #3498db, #3498db 20px, #ffffff 20px, #ffffff 40px); /* Blue and white stripes */
-            animation: slideBackground 2s linear infinite; /* Make it move to the right */
+            background: repeating-linear-gradient(90deg, #3498db, #3498db 20px, #ffffff 20px, #ffffff 40px);
+            animation: slideBackground 2s linear infinite;
         }
 
         @keyframes slideBackground {
@@ -32,8 +32,8 @@
         }
 
         #container {
-            display: flex; /* Arrange the image and chatbox side by side */
-            align-items: flex-start; /* Align items at the start */
+            display: flex;
+            align-items: flex-start;
         }
 
         #chatContainer {
@@ -42,7 +42,7 @@
             max-width: 350px;
             border: 1px solid #ccc;
             background-color: white;
-            color: black; /* Ensure the text is visible on the white background */
+            color: black;
             padding: 10px;
         }
 
@@ -54,7 +54,7 @@
 
         #chatbox div {
             margin-bottom: 10px;
-            font-size: 12px; /* Adjust font size */
+            font-size: 12px;
         }
 
         .user {
@@ -68,7 +68,7 @@
         }
 
         #header {
-            font-size: 16px; /* Keep header size the same */
+            font-size: 16px;
             font-weight: bold;
             text-decoration: underline;
             margin-bottom: 10px;
@@ -103,11 +103,12 @@
         }
 
         img {
-            max-width: 300px; /* Set a max width for the image */
-            height: auto; /* Maintain the aspect ratio */
+            max-width: 300px;
+            height: auto;
             margin: 20px;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.1.0/math.min.js"></script> <!-- Add math.js -->
 </head>
 <body>
 
@@ -205,15 +206,22 @@
             "what's 100 divided by 4": "100 divided by 4 is 25!",
             "what's 20-8": "20-8 is 12!",
             "what's 6x7": "6x7 is 42!",
-            "what's 3 squared": "3 squared is 9!",
-            "default": "Sorry, I didn't catch that. Can you try again?"
+            "what's 3 squared": "3 squared is 9!"
         };
 
-        // Function to get AI response based on user input
         function getResponse(userMessage) {
-            userMessage = userMessage.toLowerCase();
-            if (responses[userMessage]) return responses[userMessage];
-            if (responses[userMessage] && typeof responses[userMessage] === "function") return responses[userMessage]();
+            // Handle math expressions
+            if (userMessage.includes("math") || userMessage.match(/[\d\+\-\*\/\^()]+/)) {
+                try {
+                    let result = math.evaluate(userMessage); // Evaluate the expression using math.js
+                    return `The result of "${userMessage}" is: ${result}`;
+                } catch (error) {
+                    return "I couldn't understand the math expression. Please try again!";
+                }
+            }
+            
+            // Default text responses
+            if (responses[userMessage.toLowerCase()]) return responses[userMessage.toLowerCase()];
             return responses["default"];
         }
 
@@ -233,7 +241,6 @@
                 chatbox.appendChild(botMessageDiv);
 
                 chatbox.scrollTop = chatbox.scrollHeight; // Keep chat scrolled to the bottom
-
                 userInput.value = "";
             }
         });
