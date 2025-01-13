@@ -21,9 +21,25 @@
             position: relative;
         }
 
+        /* This is the background animation */
+        .background {
+            animation: backgroundMove 4s ease-in-out infinite alternate;
+            background: linear-gradient(45deg, #3498db, #9b59b6, #f1c40f, #2ecc71);
+            background-size: 300% 300%;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -2; /* Keep the background behind everything else */
+        }
+
+        /* Chat container and content */
         #container {
             display: flex;
             align-items: flex-start;
+            position: relative;
+            z-index: 1; /* Ensures it appears above the background */
         }
 
         #chatContainer {
@@ -34,12 +50,15 @@
             background-color: white;
             color: black;
             padding: 10px;
+            z-index: 2; /* Ensures the chatbox stays above the background */
         }
 
         #chatbox {
             height: 400px;
             overflow-y: auto;
             padding: 10px;
+            max-height: 400px;
+            position: relative;
         }
 
         #chatbox div {
@@ -98,6 +117,7 @@
             margin: 20px;
             position: absolute;
             animation: catTyping 3s ease-in-out infinite alternate; /* Cat animation */
+            z-index: 0; /* Keep the cat behind the chat box */
         }
 
         @keyframes catTyping {
@@ -105,6 +125,7 @@
             100% { transform: translateX(10px); }
         }
 
+        /* Typing effect */
         .dots {
             display: inline-block;
             font-size: 16px;
@@ -131,17 +152,6 @@
             100% {
                 background-position: 0% 50%;
             }
-        }
-
-        .background {
-            animation: backgroundMove 4s ease-in-out infinite alternate;
-            background: linear-gradient(45deg, #3498db, #9b59b6, #f1c40f, #2ecc71);
-            background-size: 300% 300%;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
         }
     </style>
 </head>
@@ -272,4 +282,3 @@
     </script>
 </body>
 </html>
-
