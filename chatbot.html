@@ -18,6 +18,7 @@
             height: 100vh;
             color: white;
             overflow: hidden;
+            position: relative;
         }
 
         #container {
@@ -95,8 +96,31 @@
             max-width: 300px;
             height: auto;
             margin: 20px;
+            position: absolute;
+            animation: catTyping 3s ease-in-out infinite alternate; /* Cat animation */
         }
 
+        @keyframes catTyping {
+            0% { transform: translateX(-10px); }
+            100% { transform: translateX(10px); }
+        }
+
+        .dots {
+            display: inline-block;
+            font-size: 16px;
+            padding: 0 4px;
+            animation: typingDots 1.5s steps(5, end) infinite;
+        }
+
+        @keyframes typingDots {
+            0% { content: '.'; }
+            25% { content: '..'; }
+            50% { content: '...'; }
+            75% { content: '..'; }
+            100% { content: '.'; }
+        }
+
+        /* Animating the background */
         @keyframes backgroundMove {
             0% {
                 background-position: 0% 50%;
@@ -109,7 +133,6 @@
             }
         }
 
-        /* Animating the background */
         .background {
             animation: backgroundMove 4s ease-in-out infinite alternate;
             background: linear-gradient(45deg, #3498db, #9b59b6, #f1c40f, #2ecc71);
@@ -140,11 +163,11 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.1.0/math.min.js"></script> <!-- Add math.js -->
     <script>
         const sendButton = document.getElementById("sendButton");
         const userInput = document.getElementById("userInput");
         const chatbox = document.getElementById("chatbox");
+        const aiImage = document.getElementById("aiImage");
 
         const responses = {
             "hello": "Hey there! You're paws-itively delightful to chat with!",
@@ -194,18 +217,40 @@
             "9 divided by 3": "9 divided by 3 is 3!"
         };
 
+        function simulateTyping(userMessage) {
+            // Simulate typing dots
+            const typingDiv = document.createElement("div");
+            typingDiv.classList.add("bot");
+            typingDiv.textContent = "AI is typing";
+            chatbox.appendChild(typingDiv);
+
+            // Animate cat image and typing dots
+            aiImage.style.animation = 'catTyping 1s ease-in-out infinite alternate';
+
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    typingDiv.remove(); // Remove typing dots after the delay
+                    aiImage.style.animation = ''; // Stop cat animation
+                    resolve();
+                }, 3000); // Simulate 3 seconds typing time
+            });
+        }
+
         function getResponse(userMessage) {
             if (responses[userMessage.toLowerCase()]) return responses[userMessage.toLowerCase()];
             return responses["default"];
         }
 
-        sendButton.addEventListener("click", function() {
+        sendButton.addEventListener("click", async function() {
             const userMessage = userInput.value.trim();
             if (userMessage) {
                 const userMessageDiv = document.createElement("div");
                 userMessageDiv.classList.add("user");
                 userMessageDiv.textContent = userMessage;
                 chatbox.appendChild(userMessageDiv);
+
+                // Simulate typing before sending response
+                await simulateTyping(userMessage);
 
                 const botResponse = getResponse(userMessage);
                 const botMessageDiv = document.createElement("div");
