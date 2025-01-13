@@ -37,11 +37,12 @@
         /* Container for both the cat and the chatbox */
         #container {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start; /* Align the content to the start */
             align-items: flex-start;
             position: relative;
             z-index: 1;
-            width: 90%; /* Adjust width to give space for both */
+            width: 80%; /* Adjust width to fit both elements */
+            max-width: 1000px; /* Max width of the whole container */
         }
 
         #chatContainer {
@@ -54,6 +55,7 @@
             padding: 10px;
             z-index: 2; /* Ensures the chatbox stays above the background */
             position: relative;
+            margin-left: 20px; /* Make some space between the cat and the chatbox */
         }
 
         #chatbox {
@@ -116,9 +118,9 @@
 
         /* Positioning the cat */
         img {
-            max-width: 200px;
+            width: 250px; /* Make the cat image bigger */
             height: auto;
-            margin: 20px;
+            margin-top: 20px;
             position: relative;
             z-index: 1;
             animation: catMove 4s ease-in-out infinite alternate; /* Add side-to-side motion */
@@ -256,4 +258,3 @@
     </script>
 </body>
 </html>
-
