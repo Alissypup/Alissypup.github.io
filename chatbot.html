@@ -18,6 +18,17 @@
             height: 100vh; /* Full height of the viewport */
             color: white; /* Make text white */
             overflow: hidden;
+            background: repeating-linear-gradient(90deg, #3498db, #3498db 20px, #ffffff 20px, #ffffff 40px); /* Blue and white stripes */
+            animation: slideBackground 2s linear infinite; /* Make it move to the right */
+        }
+
+        @keyframes slideBackground {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 100% 0;
+            }
         }
 
         #container {
@@ -94,22 +105,6 @@
             max-width: 300px; /* Set a max width for the image */
             height: auto; /* Maintain the aspect ratio */
             margin: 20px;
-        }
-
-        /* Animated blue and white background */
-        @keyframes slideBackground {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 100% 0;
-            }
-        }
-
-        body {
-            background: linear-gradient(90deg, #3498db, #ffffff);
-            background-size: 200% 100%;
-            animation: slideBackground 5s linear infinite;
         }
     </style>
 </head>
