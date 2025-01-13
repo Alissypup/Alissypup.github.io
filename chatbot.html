@@ -55,7 +55,7 @@
             padding: 10px;
             z-index: 2; /* Ensures the chatbox stays above the background */
             position: relative;
-            margin-left: 20px; /* Make some space between the cat and the chatbox */
+            margin-left: 30px; /* Move chatbox a bit farther from the cat */
         }
 
         #chatbox {
@@ -139,16 +139,22 @@
             }
         }
 
-        /* Side-to-side motion for the cat */
+        /* Side-to-side motion and rotation for the cat */
         @keyframes catMove {
             0% {
-                transform: translateX(0);
+                transform: translateX(0) rotate(0deg);
+            }
+            25% {
+                transform: translateX(15px) rotate(15deg); /* Move right and rotate slightly */
             }
             50% {
-                transform: translateX(30px); /* Move the cat to the right */
+                transform: translateX(30px) rotate(0deg); /* Move right further and reset rotation */
+            }
+            75% {
+                transform: translateX(15px) rotate(-15deg); /* Move left and rotate slightly to the left */
             }
             100% {
-                transform: translateX(0);
+                transform: translateX(0) rotate(0deg); /* Move back to the starting point and reset rotation */
             }
         }
     </style>
