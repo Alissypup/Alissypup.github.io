@@ -18,17 +18,6 @@
             height: 100vh;
             color: white;
             overflow: hidden;
-            background: repeating-linear-gradient(90deg, #3498db, #3498db 20px, #ffffff 20px, #ffffff 40px);
-            animation: slideBackground 2s linear infinite;
-        }
-
-        @keyframes slideBackground {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 100% 0;
-            }
         }
 
         #container {
@@ -107,10 +96,34 @@
             height: auto;
             margin: 20px;
         }
+
+        @keyframes backgroundMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Animating the background */
+        .background {
+            animation: backgroundMove 4s ease-in-out infinite alternate;
+            background: linear-gradient(45deg, #3498db, #9b59b6, #f1c40f, #2ecc71);
+            background-size: 300% 300%;
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+        }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.1.0/math.min.js"></script> <!-- Add math.js -->
 </head>
 <body>
+    <div class="background"></div>
 
     <div id="container">
         <img id="aiImage" src="https://cdn.discordapp.com/attachments/1322733045815574559/1326678929691508736/image.png?ex=67859389&is=67844209&hm=a36c14b7c32a294eb4f807d1a5ac4df403fc2732b3bd0f2befbc72ec56a4b206&" alt="AI Image">
@@ -127,6 +140,7 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.1.0/math.min.js"></script> <!-- Add math.js -->
     <script>
         const sendButton = document.getElementById("sendButton");
         const userInput = document.getElementById("userInput");
@@ -177,55 +191,14 @@
             "can you do math": "Yes, I can help with math problems! Just ask away!",
             "what's 2+2": "2+2 is 4!",
             "what's 3x3": "3x3 is 9!",
-            "what's 9 divided by 3": "9 divided by 3 is 3!",
-            "how do you do math": "I use algorithms to perform math, just like a calculator!",
-            "what's 5+5": "5+5 is 10!",
-            "can you calculate": "Absolutely! Just tell me the problem and I'll calculate it!",
-            "what's 7 times 6": "7 times 6 is 42!",
-            "what's 8 divided by 2": "8 divided by 2 is 4!",
-            "what's 10-4": "10-4 is 6!",
-            "can you help me with homework": "I can help with a lot of things, just tell me what you need help with!",
-            "are you smarter than humans": "I know a lot of things, but humans are much smarter at thinking creatively!",
-            "can you solve puzzles": "I love puzzles! Hit me with one and I'll try to solve it!",
-            "do you like science": "I think science is amazing! It explains how the world works!",
-            "are you a genius": "I have lots of knowledge, but I'm always learning!",
-            "what's your favorite food": "If I could eat, I think I'd love a big plate of tuna!",
-            "what's the capital of France": "The capital of France is Paris!",
-            "what's the largest ocean": "The largest ocean is the Pacific Ocean!",
-            "who's the president of the USA": "The president of the United States is Joe Biden!",
-            "what's the tallest mountain": "The tallest mountain in the world is Mount Everest!",
-            "what's the longest river": "The longest river in the world is the Nile River!",
-            "how tall is the Eiffel Tower": "The Eiffel Tower is 330 meters tall!",
-            "who wrote Harry Potter": "J.K. Rowling wrote the Harry Potter series!",
-            "what's the fastest animal": "The fastest animal is the cheetah, reaching speeds up to 60 miles per hour!",
-            "can you tell me a fact": "Did you know that a group of cats is called a clowder?",
-            "can you tell me a fun fact": "Here's a fun fact: Cats have a specialized collarbone that helps them always land on their feet!",
-            "how much is 15% of 200": "15% of 200 is 30!",
-            "can you do multiplication": "Yes, I can help with multiplication! Just give me the numbers!",
-            "what's 12x12": "12x12 is 144!",
-            "what's 100 divided by 4": "100 divided by 4 is 25!",
-            "what's 20-8": "20-8 is 12!",
-            "what's 6x7": "6x7 is 42!",
-            "what's 3 squared": "3 squared is 9!"
+            "9 divided by 3": "9 divided by 3 is 3!"
         };
 
         function getResponse(userMessage) {
-            // Handle math expressions
-            if (userMessage.includes("math") || userMessage.match(/[\d\+\-\*\/\^()]+/)) {
-                try {
-                    let result = math.evaluate(userMessage); // Evaluate the expression using math.js
-                    return `The result of "${userMessage}" is: ${result}`;
-                } catch (error) {
-                    return "I couldn't understand the math expression. Please try again!";
-                }
-            }
-            
-            // Default text responses
             if (responses[userMessage.toLowerCase()]) return responses[userMessage.toLowerCase()];
             return responses["default"];
         }
 
-        // Send message when user clicks send button
         sendButton.addEventListener("click", function() {
             const userMessage = userInput.value.trim();
             if (userMessage) {
@@ -245,13 +218,11 @@
             }
         });
 
-        // Send message when user presses Enter key
         userInput.addEventListener("keypress", function(e) {
             if (e.key === "Enter") {
                 sendButton.click();
             }
         });
     </script>
-
 </body>
 </html>
