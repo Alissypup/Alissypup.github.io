@@ -21,6 +21,11 @@
             align-items: flex-start; /* Align items at the start */
         }
 
+        #chatContainer {
+            display: flex;
+            flex-direction: column;
+        }
+
         #chatbox {
             width: 300px;
             height: 400px;
@@ -45,21 +50,24 @@
             color: black;
         }
 
-        #userInput {
-            width: calc(100% - 20px);
-            padding: 10px;
+        #inputContainer {
+            display: flex;
             margin-top: 10px;
+        }
+
+        #userInput {
+            flex: 1;
+            padding: 10px;
             border: 1px solid #ccc;
         }
 
         #sendButton {
-            width: 100%;
             padding: 10px;
             background-color: #4CAF50;
             color: white;
             border: none;
             cursor: pointer;
-            margin-top: 10px;
+            margin-left: 10px;
         }
 
         #sendButton:hover {
@@ -76,15 +84,19 @@
 <body>
 
     <div id="container">
-        <div id="chatbox">
-            <div class="bot">This is an AMAZING AI!</div>
-        </div>
-
         <img id="aiImage" src="https://cdn.discordapp.com/attachments/1322733045815574559/1326678929691508736/image.png?ex=67859389&is=67844209&hm=a36c14b7c32a294eb4f807d1a5ac4df403fc2732b3bd0f2befbc72ec56a4b206&" alt="AI Image">
-    </div>
 
-    <input type="text" id="userInput" placeholder="Type your message...">
-    <button id="sendButton">send</button>
+        <div id="chatContainer">
+            <div id="chatbox">
+                <div class="bot">This is an AMAZING AI!</div>
+            </div>
+
+            <div id="inputContainer">
+                <input type="text" id="userInput" placeholder="Type your message...">
+                <button id="sendButton">send</button>
+            </div>
+        </div>
+    </div>
 
     <script>
         const sendButton = document.getElementById("sendButton");
@@ -180,4 +192,3 @@
 
 </body>
 </html>
-
