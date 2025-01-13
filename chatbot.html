@@ -83,6 +83,17 @@
             "default": "Sorry I'm not trained to understand that, try again with another message!"
         };
 
+        function getResponse(userMessage) {
+            if (/hello|hello\s+catai/i.test(userMessage)) return responses["hello"];
+            if (/hey|hey\s+catai/i.test(userMessage)) return responses["hey"];
+            if (/yo/i.test(userMessage)) return responses["yo"];
+            if (/hi/i.test(userMessage)) return responses["hi"];
+            if (/how are you/i.test(userMessage)) return responses["how are you"];
+            if (/bye/i.test(userMessage)) return responses["bye"];
+            if (/is this ai good\?/i.test(userMessage)) return responses["is this ai good?"];
+            return responses["default"];
+        }
+
         sendButton.addEventListener("click", function() {
             const userMessage = userInput.value.trim().toLowerCase();
             if (userMessage) {
@@ -91,7 +102,7 @@
                 userMessageDiv.textContent = userMessage;
                 chatbox.appendChild(userMessageDiv);
 
-                let botResponse = responses[userMessage] || responses["default"];
+                const botResponse = getResponse(userMessage);
                 const botMessageDiv = document.createElement("div");
                 botMessageDiv.classList.add("bot");
                 botMessageDiv.textContent = botResponse;
@@ -112,3 +123,4 @@
 
 </body>
 </html>
+
