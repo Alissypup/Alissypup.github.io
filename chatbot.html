@@ -34,12 +34,14 @@
             z-index: -2; /* Keep the background behind everything else */
         }
 
-        /* Chat container and content */
+        /* Container for both the cat and the chatbox */
         #container {
             display: flex;
+            justify-content: space-between;
             align-items: flex-start;
             position: relative;
-            z-index: 1; /* Ensures it appears above the background */
+            z-index: 1;
+            width: 90%; /* Adjust width to give space for both */
         }
 
         #chatContainer {
@@ -51,6 +53,7 @@
             color: black;
             padding: 10px;
             z-index: 2; /* Ensures the chatbox stays above the background */
+            position: relative;
         }
 
         #chatbox {
@@ -111,13 +114,14 @@
             background-color: #45a049;
         }
 
+        /* Positioning the cat */
         img {
-            max-width: 300px;
+            max-width: 200px;
             height: auto;
             margin: 20px;
-            position: absolute;
-            bottom: 0;
-            z-index: -1; /* Keep the cat behind the chatbox, but above the background */
+            position: relative;
+            z-index: 1;
+            animation: catMove 4s ease-in-out infinite alternate; /* Add side-to-side motion */
         }
 
         /* Animating the background */
@@ -130,6 +134,19 @@
             }
             100% {
                 background-position: 0% 50%;
+            }
+        }
+
+        /* Side-to-side motion for the cat */
+        @keyframes catMove {
+            0% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(30px); /* Move the cat to the right */
+            }
+            100% {
+                transform: translateX(0);
             }
         }
     </style>
