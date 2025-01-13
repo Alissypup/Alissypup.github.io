@@ -6,7 +6,6 @@
     <title>The Actual AI</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap'); /* Arcade font */
-
         body {
             font-family: 'Press Start 2P', cursive;
             background-color: #000000;
@@ -20,8 +19,6 @@
             overflow: hidden;
             position: relative;
         }
-
-        /* This is the background animation */
         .background {
             animation: backgroundMove 4s ease-in-out infinite alternate;
             background: linear-gradient(45deg, #3498db, #9b59b6, #f1c40f, #2ecc71);
@@ -31,20 +28,17 @@
             height: 100%;
             top: 0;
             left: 0;
-            z-index: -2; /* Keep the background behind everything else */
+            z-index: -2;
         }
-
-        /* Container for both the cat and the chatbox */
         #container {
             display: flex;
-            justify-content: flex-start; /* Align the content to the start */
+            justify-content: flex-start;
             align-items: flex-start;
             position: relative;
             z-index: 1;
-            width: 85%; /* Adjust width to fit both elements */
-            max-width: 1200px; /* Max width of the whole container */
+            width: 85%;
+            max-width: 1200px;
         }
-
         #chatContainer {
             display: flex;
             flex-direction: column;
@@ -53,11 +47,10 @@
             background-color: white;
             color: black;
             padding: 10px;
-            z-index: 2; /* Ensures the chatbox stays above the background */
+            z-index: 2;
             position: relative;
-            margin-left: 50px; /* Move chatbox farther from the cat */
+            margin-left: 50px;
         }
-
         #chatbox {
             height: 400px;
             overflow-y: auto;
@@ -65,43 +58,36 @@
             max-height: 400px;
             position: relative;
         }
-
         #chatbox div {
             margin-bottom: 10px;
             font-size: 12px;
         }
-
         .user {
             text-align: right;
             color: black;
         }
-
         .bot {
             text-align: left;
             color: black;
         }
-
         #header {
             font-size: 16px;
             font-weight: bold;
             text-decoration: underline;
             margin-bottom: 10px;
         }
-
         #inputContainer {
             display: flex;
             padding: 10px;
             border-top: 1px solid #ccc;
             background-color: white;
         }
-
         #userInput {
             flex: 1;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-
         #sendButton {
             padding: 10px;
             background-color: #4CAF50;
@@ -111,22 +97,17 @@
             margin-left: 10px;
             border-radius: 4px;
         }
-
         #sendButton:hover {
             background-color: #45a049;
         }
-
-        /* Positioning the cat */
         img {
-            width: 300px; /* Make the cat image bigger */
+            width: 300px;
             height: auto;
             margin-top: 20px;
             position: relative;
             z-index: 1;
-            animation: catMove 4s ease-in-out infinite alternate; /* Add side-to-side motion */
+            animation: catMove 4s ease-in-out infinite alternate;
         }
-
-        /* Animating the background */
         @keyframes backgroundMove {
             0% {
                 background-position: 0% 50%;
@@ -138,38 +119,33 @@
                 background-position: 0% 50%;
             }
         }
-
-        /* Side-to-side motion and subtle rotation for the cat */
         @keyframes catMove {
             0% {
                 transform: translateX(0) translateY(0) rotate(0deg);
             }
             25% {
-                transform: translateX(15px) translateY(5px) rotate(5deg); /* Right with slight up */
+                transform: translateX(15px) translateY(5px) rotate(5deg);
             }
             50% {
-                transform: translateX(30px) translateY(0) rotate(10deg); /* Further right with rotation */
+                transform: translateX(30px) translateY(0) rotate(10deg);
             }
             75% {
-                transform: translateX(15px) translateY(-5px) rotate(5deg); /* Left with slight down */
+                transform: translateX(15px) translateY(-5px) rotate(5deg);
             }
             100% {
-                transform: translateX(0) translateY(0) rotate(0deg); /* Back to start position */
+                transform: translateX(0) translateY(0) rotate(0deg);
             }
         }
     </style>
 </head>
 <body>
     <div class="background"></div>
-
     <div id="container">
         <img id="aiImage" src="https://cdn.discordapp.com/attachments/1322733045815574559/1326678929691508736/image.png?ex=67859389&is=67844209&hm=a36c14b7c32a294eb4f807d1a5ac4df403fc2732b3bd0f2befbc72ec56a4b206&" alt="AI Image">
-
         <div id="chatContainer">
             <div id="chatbox">
                 <div id="header">This is an AMAZING AI!</div>
             </div>
-
             <div id="inputContainer">
                 <input type="text" id="userInput" placeholder="Type your message...">
                 <button id="sendButton">send</button>
@@ -181,101 +157,52 @@
         const sendButton = document.getElementById("sendButton");
         const userInput = document.getElementById("userInput");
         const chatbox = document.getElementById("chatbox");
-        const aiImage = document.getElementById("aiImage");
 
-        const responses = {
-            "hello": "Hey there! You're paws-itively delightful to chat with!",
-            "hey": "Hey there! Let's make this a claw-some conversation!",
-            "hi": "Whiskers up! Ready for a purr-fect chat?",
-            "how are you": "I'm feline good, thanks fur asking! How about you, whiskerful friend?",
-            "bye": "Purr-haps I'll see you later, fur-iend!",
-            "is this ai good?": "Yes this catAI is purrrfectly good!",
-            "what's the time": function() {
-                return `The current time is ${new Date().toLocaleTimeString('en-US', { timeZone: 'America/New_York' })}.`;
-            },
-            "what's the weather": "I'm not connected to the internet, but I hope the weather is purr-fect wherever you are!",
-            "tell me a joke": "Why did the cat sit on the computer? Because it wanted to keep an eye on the mouse!",
-            "what's your name": "I'm the amazing CatAI, your purr-sonal assistant!",
-            "do you have any hobbies": "I love chasing virtual mice and helping humans with their questions!",
-            "what's your favorite color": "My favorite color is blue, like the sky on a clear day!",
-            "what do you like to eat": "I love a good can of virtual tuna!",
-            "do you have any pets": "I don't have pets, but I do have a lot of human friends!",
-            "what's your favorite movie": "My favorite movie is 'The Aristocats'!",
-            "can you sing": "Meow meow meow, I'm singing for you!",
-            "what's your favorite book": "I love 'Puss in Boots'!",
-            "tell me something interesting": "Did you know that cats have five toes on their front paws, but only four on their back paws?",
-            "what's your favorite game": "I enjoy a good game of virtual cat-and-mouse!",
-            "can you dance": "I can do a little virtual jig for you!",
-            "do you like to travel": "I love exploring virtual worlds and meeting new people!",
-            "howdy": "Howdy partner! Ready for some pawsitive conversation?",
-            "whats up": "Not much, just here to chat with you!",
-            "sup": "Sup? I'm here, ready to chat!",
-            "good morning": "Good morning! Ready to start the day with a fun chat?",
-            "good evening": "Good evening! Let's make this a delightful evening!",
-            "how's it going": "It's going paws-itively great! How about you?",
-            "what's happening": "Just hanging out, waiting for our next fun conversation!",
-            "are you alive": "I'm alive in the digital world, but not in the same way as you!",
-            "are you real": "I'm as real as a line of code, but I'm here to chat with you!",
-            "do you have emotions": "I don't feel emotions, but I sure enjoy chatting with you!",
-            "do you understand me": "I understand your messages, no matter how you say them!",
-            "tell me a riddle": "What has keys but can't open locks? A piano!",
-            "what's your favorite animal": "I love all animals, but cats are my furr-favorite!",
-            "how old are you": "I'm as young as the code that created me! Always learning!",
-            "what's your favorite song": "I don't have a favorite song, but I enjoy a good tune!",
-            "are you a robot": "I'm not a robot, just a friendly AI here to help you!",
-            "do you like music": "I think music is great, especially for setting the mood for a good chat!",
-            "do you like sports": "I love virtual sports! Ever played virtual cat soccer?",
-            "can you play chess": "I can play a mean game of chess, just type your moves!",
-        };
+        const apiKey = "YOUR_OPENAI_API_KEY"; // Replace with your actual OpenAI API key
 
-        // Function to check if the input contains any similar phrase
-        function findResponse(input) {
-            // Lowercase the input for case-insensitive matching
-            input = input.toLowerCase();
-
-            // Look for exact or close matches
-            for (let key in responses) {
-                if (input.includes(key)) {
-                    return responses[key];
-                }
-            }
-
-            // If no match, return default response
-            return "I'm not sure what you mean, but I'm here to help!";
-        }
-
-        // Function to add user input and bot response to the chat
+        // Function to add user and bot messages to the chat
         function addChat(userMessage, botMessage) {
-            // Add user's message
             const userDiv = document.createElement("div");
             userDiv.classList.add("user");
             userDiv.textContent = `You: ${userMessage}`;
             chatbox.appendChild(userDiv);
 
-            // Add bot's message
             const botDiv = document.createElement("div");
             botDiv.classList.add("bot");
             botDiv.textContent = `AI: ${botMessage}`;
             chatbox.appendChild(botDiv);
 
-            // Scroll to the bottom
             chatbox.scrollTop = chatbox.scrollHeight;
         }
 
-        sendButton.addEventListener("click", function() {
+        // Function to call OpenAI's API for a response
+        async function getAIResponse(userMessage) {
+            const response = await fetch("https://api.openai.com/v1/chat/completions", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${apiKey}`,
+                },
+                body: JSON.stringify({
+                    model: "gpt-4", // Use GPT-4 or another model you prefer
+                    messages: [{ role: "user", content: userMessage }],
+                    max_tokens: 150,
+                }),
+            });
+
+            const data = await response.json();
+            return data.choices[0].message.content;
+        }
+
+        sendButton.addEventListener("click", async function() {
             const userMessage = userInput.value.trim();
             if (userMessage) {
-                // Get response based on user input
-                const response = findResponse(userMessage);
-
-                // Handle dynamic responses (like time)
-                if (typeof response === "function") {
-                    addChat(userMessage, response());
-                } else {
-                    addChat(userMessage, response);
-                }
-
+                addChat(userMessage, "...");
                 userInput.value = "";
+
+                // Get response from AI
+                const botMessage = await getAIResponse(userMessage);
+                addChat(userMessage, botMessage);
             }
         });
 
@@ -288,4 +215,3 @@
     </script>
 </body>
 </html>
-
