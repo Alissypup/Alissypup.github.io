@@ -17,6 +17,7 @@
             align-items: center; /* Center the content vertically */
             height: 100vh; /* Full height of the viewport */
             color: white; /* Make text white */
+            overflow: hidden;
         }
 
         #container {
@@ -94,6 +95,22 @@
             height: auto; /* Maintain the aspect ratio */
             margin: 20px;
         }
+
+        /* Animated blue and white background */
+        @keyframes slideBackground {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 100% 0;
+            }
+        }
+
+        body {
+            background: linear-gradient(90deg, #3498db, #ffffff);
+            background-size: 200% 100%;
+            animation: slideBackground 5s linear infinite;
+        }
     </style>
 </head>
 <body>
@@ -142,7 +159,61 @@
             "what's your favorite game": "I enjoy a good game of virtual cat-and-mouse!",
             "can you dance": "I can do a little virtual jig for you!",
             "do you like to travel": "I love exploring virtual worlds and meeting new people!",
-            "default": "Sorry I'm not trained to understand that, try again with another message!"
+            "default": "Sorry I'm not trained to understand that, try again with another message!",
+
+            // Additional Responses (50 more)
+            "howdy": "Howdy partner! Ready for some pawsitive conversation?",
+            "whats up": "Not much, just here to chat with you!",
+            "sup": "Sup? I'm here, ready to chat!",
+            "good morning": "Good morning! Ready to start the day with a fun chat?",
+            "good evening": "Good evening! Let's make this a delightful evening!",
+            "how's it going": "It's going paws-itively great! How about you?",
+            "what's happening": "Just hanging out, waiting for our next fun conversation!",
+            "are you alive": "I'm alive in the digital world, but not in the same way as you!",
+            "are you real": "I'm as real as a line of code, but I'm here to chat with you!",
+            "do you have emotions": "I don't feel emotions, but I sure enjoy chatting with you!",
+            "do you understand me": "I understand your messages, no matter how you say them!",
+            "tell me a riddle": "What has keys but can't open locks? A piano!",
+            "what's your favorite animal": "I love all animals, but cats are my furr-favorite!",
+            "how old are you": "I'm as young as the code that created me! Always learning!",
+            "what's your favorite song": "I don't have a favorite song, but I enjoy a good tune!",
+            "are you a robot": "I'm not a robot, just a friendly AI here to help you!",
+            "do you like music": "I think music is great, especially for setting the mood for a good chat!",
+            "do you like sports": "I love virtual sports! Ever played virtual cat soccer?",
+            "can you play chess": "I can play a mean game of chess, just let me know when you're ready!",
+            "can you do math": "Yes, I can help with math problems! Just ask away!",
+            "what's 2+2": "2+2 is 4!",
+            "what's 3x3": "3x3 is 9!",
+            "what's 9 divided by 3": "9 divided by 3 is 3!",
+            "how do you do math": "I use algorithms to perform math, just like a calculator!",
+            "what's 5+5": "5+5 is 10!",
+            "can you calculate": "Absolutely! Just tell me the problem and I'll calculate it!",
+            "what's 7 times 6": "7 times 6 is 42!",
+            "what's 8 divided by 2": "8 divided by 2 is 4!",
+            "what's 10-4": "10-4 is 6!",
+            "can you help me with homework": "I can help with a lot of things, just tell me what you need help with!",
+            "are you smarter than humans": "I know a lot of things, but humans are much smarter at thinking creatively!",
+            "can you solve puzzles": "I love puzzles! Hit me with one and I'll try to solve it!",
+            "do you like science": "I think science is amazing! It explains how the world works!",
+            "are you a genius": "I have lots of knowledge, but I'm always learning!",
+            "what's your favorite food": "If I could eat, I think I'd love a big plate of tuna!",
+            "what's the capital of France": "The capital of France is Paris!",
+            "what's the largest ocean": "The largest ocean is the Pacific Ocean!",
+            "who's the president of the USA": "The president of the United States is Joe Biden!",
+            "what's the tallest mountain": "The tallest mountain in the world is Mount Everest!",
+            "what's the longest river": "The longest river in the world is the Nile River!",
+            "how tall is the Eiffel Tower": "The Eiffel Tower is 330 meters tall!",
+            "who wrote Harry Potter": "J.K. Rowling wrote the Harry Potter series!",
+            "what's the fastest animal": "The fastest animal is the cheetah, reaching speeds up to 60 miles per hour!",
+            "can you tell me a fact": "Did you know that a group of cats is called a clowder?",
+            "can you tell me a fun fact": "Here's a fun fact: Cats have a specialized collarbone that helps them always land on their feet!",
+            "how much is 15% of 200": "15% of 200 is 30!",
+            "can you do multiplication": "Yes, I can help with multiplication! Just give me the numbers!",
+            "what's 12x12": "12x12 is 144!",
+            "what's 100 divided by 4": "100 divided by 4 is 25!",
+            "what's 20-8": "20-8 is 12!",
+            "what's 6x7": "6x7 is 42!",
+            "what's 3 squared": "3 squared is 9!"
         };
 
         function getResponse(userMessage) {
@@ -168,6 +239,14 @@
             if (/favorite\s*game/i.test(userMessage)) return responses["what's your favorite game"];
             if (/dance/i.test(userMessage)) return responses["can you dance"];
             if (/like\s*to\s*travel/i.test(userMessage)) return responses["do you like to travel"];
+            // Math questions
+            if (/\d+\s*[\+\-\*\/]\s*\d+/.test(userMessage)) {
+                try {
+                    return eval(userMessage.replace(/[^0-9+\-*/(). ]/g, ''));
+                } catch (e) {
+                    return "Sorry, I couldn't calculate that.";
+                }
+            }
             return responses["default"];
         }
 
@@ -196,7 +275,7 @@
                 sendButton.click();
             }
         });
+    </script>
 
-        // To update the image, you can change the src attribute
-        function updateImage(url) {
-            aiImage.src =[_{{{CITATION{{{_1{](https://github.com/RaccoonCode96/RaccoonCode96.github.io/tree/6277085f61ca58c820d51b86d2fe9fc816eb4906/_posts%2F2021-01-15-Web_basic02.md)
+</body>
+</html>
