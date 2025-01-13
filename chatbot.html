@@ -241,7 +241,7 @@
             return responses["default"];
         }
 
-        sendButton.addEventListener("click", async function() {
+        async function handleMessage() {
             const userMessage = userInput.value.trim();
             if (userMessage) {
                 const userMessageDiv = document.createElement("div");
@@ -261,13 +261,15 @@
                 chatbox.scrollTop = chatbox.scrollHeight; // Keep chat scrolled to the bottom
                 userInput.value = "";
             }
-        });
+        }
 
+        sendButton.addEventListener("click", handleMessage);
         userInput.addEventListener("keypress", function(e) {
             if (e.key === "Enter") {
-                sendButton.click();
+                handleMessage();
             }
         });
     </script>
 </body>
 </html>
+
