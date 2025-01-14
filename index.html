@@ -18,9 +18,9 @@
             align-items: center;
             flex-direction: column;
             overflow: hidden;
-            background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
-            background-size: 200% 200%; /* Larger size for smooth movement */
-            animation: backgroundMove 10s linear infinite; /* Infinite smooth animation */
+            background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
+            background-size: 400% 400%; /* Increase the gradient size for smoother movement */
+            animation: backgroundMove 15s ease infinite; /* Make the gradient move smoothly */
         }
 
         /* Animation to move the gradient */
@@ -28,8 +28,11 @@
             0% {
                 background-position: 0% 0%;
             }
-            100% {
+            50% {
                 background-position: 100% 100%;
+            }
+            100% {
+                background-position: 0% 0%;
             }
         }
 
@@ -73,3 +76,4 @@
     <a href="chatbot.html">Meet CatAi</a>
 </body>
 </html>
+
