@@ -19,7 +19,18 @@
             flex-direction: column;
             overflow: hidden;
             background: linear-gradient(to right, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #8b00ff);
-            background-size: 100% 100%;
+            background-size: 200% 200%; /* Larger size for smooth movement */
+            animation: backgroundMove 10s linear infinite; /* Infinite smooth animation */
+        }
+
+        /* Animation to move the gradient */
+        @keyframes backgroundMove {
+            0% {
+                background-position: 0% 0%;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
         }
 
         h1 {
